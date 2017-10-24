@@ -1,8 +1,19 @@
+# coding=utf-8
+# -*- coding: utf-8 -*-
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
 from google.cloud import translate
 import six
+
+import mydb
+import time
+
+conn = mydb.connect()
 
 def makeSentence(raw_html):
     return lengthCheck(cleanhtml(raw_html))
@@ -34,21 +45,28 @@ def translate_text(target, text):
     result = translate_client.translate(
         text, target_language=target)
 
-    print(u'Text: {}'.format(result['input']))
-    print(u': {}'.format(result['translatedText']))
+    #print(u'Text: {}'.format(result['input']))
+    #print(u': {}'.format(result['translatedText']))
     #print(u'Detected source language: {}'.format(
     #    result['detectedSourceLanguage']))
+    return result['translatedText']
 
 
-html = urlopen("https://www.quora.com/Is-Node-js-a-better-choice-than-Python-for-server-side-development-i-e-why-would-one-use-Python-over-Javascript-and-Node-js")
+url = 'https://www.quora.com/Is-Node-js-a-better-choice-than-Python-for-server-side-development-i-e-why-would-one-use-Python-over-Javascript-and-Node-js'
+html = urlopen(url)
 bsObj = BeautifulSoup(html.read(), "html.parser")
-#print(cleanhtml(bsObj.title))
-translate_text('ja', cleanhtml(bsObj.title))
+title = translate_text('ja', cleanhtml(bsObj.title))
+params1 = bsObj.findAll("p", {"class":"qtext_para"})
 
-paras = bsObj.findAll("p", {"class":"qtext_para"})
-for hoge in paras:
+body = []
+for hoge in params1:
     if makeSentence(hoge) != '':
-        print('-------')
         raw = makeSentence(hoge)
-        #print(raw)
-        translate_text('ja', raw)
+        body.append(translate_text('ja', raw))
+
+print('--body--')
+print("\n".join(body))
+
+#mydb.insert(conn, 'idhash' + str(time.time()), url, 'www.quora.com', 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg', title, 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg', "\n".join(body)) 
+
+
