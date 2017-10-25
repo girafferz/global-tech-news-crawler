@@ -2,22 +2,18 @@
 # -*- coding: utf-8 -*-
 import sys
 import io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
 from google.cloud import translate
 import six
-
-import mydb
 import time
-
-conn = mydb.connect()
+import mydb
+from urllib.parse import urlparse
 
 def makeSentence(raw_html):
     return lengthCheck(cleanhtml(raw_html))
-
 
 def lengthCheck(sentence):
     if len(sentence) < 10 :
@@ -51,22 +47,78 @@ def translate_text(target, text):
     #    result['detectedSourceLanguage']))
     return result['translatedText']
 
+def fetchQuora(conn, url):
+    #url = 'https://www.quora.com/Is-Node-js-a-better-choice-than-Python-for-server-side-development-i-e-why-would-one-use-Python-over-Javascript-and-Node-js'
+    print('---url---')
+    print(url)
+    html = urlopen(url)
+    bsObj = BeautifulSoup(html.read(), "html.parser")
+    title = translate_text('ja', cleanhtml(bsObj.title))
+    #params1 = bsObj.findAll("p", {"class":"qtext_para"})
+    params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
 
-url = 'https://www.quora.com/Is-Node-js-a-better-choice-than-Python-for-server-side-development-i-e-why-would-one-use-Python-over-Javascript-and-Node-js'
-html = urlopen(url)
-bsObj = BeautifulSoup(html.read(), "html.parser")
-title = translate_text('ja', cleanhtml(bsObj.title))
-params1 = bsObj.findAll("p", {"class":"qtext_para"})
+    print('--params1--')
+    print(params1)
 
-body = []
-for hoge in params1:
-    if makeSentence(hoge) != '':
-        raw = makeSentence(hoge)
-        body.append(translate_text('ja', raw))
+    bodyJa = []
+    bodyEn = []
 
-print('--body--')
-print("\n".join(body))
+    for hoge in params1:
+        if makeSentence(hoge) != '':
+            raw = makeSentence(hoge)
+            bodyJa.append(translate_text('ja', raw))
+            bodyEn.append(raw)
 
-#mydb.insert(conn, 'idhash' + str(time.time()), url, 'www.quora.com', 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg', title, 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg', "\n".join(body)) 
+    print('--bodyEn--')
+    print("\n".join(bodyEn))
+    print('--bodyJa--')
+    print("\n".join(bodyJa))
 
+    mydb.insert(conn, 'id' + str(time.time()), url, 'www.quora.com', 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg', title, 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg', "\n".join(bodyEn), "\n".join(bodyJa))
 
+def getHost(url):
+    url = urlparse(url)
+    host = url.hostname or 'localhost'
+    print(host)
+    return host
+
+def fetchLifeHacker(conn, url):
+    html = urlopen(url)
+    bsObj = BeautifulSoup(html.read(), "html.parser")
+    params1 = bsObj.findAll("h1", {"class": "headline"})
+    params2 = bsObj.findAll("div", {"class": "excerpt entry-summary"})
+    params3 = bsObj.findAll("picture")
+
+    head = []
+    for h in params1:
+        head.append(h.text)
+
+    summary = []
+    for para2 in params2:
+        summary.append(para2.p.text)
+
+    pic = []
+    for obj in params3:
+        list = obj.findAll("source",{"media": "--small"})
+        for l in list:
+            #print(l)
+            hoge = l["data-srcset"]
+            pic.append(hoge)
+
+    print(len(head))
+    print(len(summary))
+    print(len(pic))
+
+    host = getHost(url)
+    icon = 'http://ch.res.nimg.jp/img/system/blog_author/ch901.jpg'
+
+    num = 0
+    for i in head:
+        title = translate_text('ja', head[num])
+        bodyEn = summary[num]
+        bodyJa = translate_text('ja', bodyEn)
+        imgUrl = pic[num]
+        mydb.insert(conn, 'id' + str(time.time()), url, host, imgUrl, title, imgUrl, bodyEn, bodyJa)
+        num += 1
+
+    #title = translate_text('ja', cleanhtml(bsObj.title))

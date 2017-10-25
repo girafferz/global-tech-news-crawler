@@ -16,11 +16,19 @@ def connect():
 
     return conn
 
-def insert(conn, id, originUrl, originCaption, imageUrl, title, iconImageUrl, h1):
+def insert(conn, id, originUrl, originCaption, imageUrl, title, iconImageUrl, h1en, h1ja):
     try:
         cur = conn.cursor()
-        cur.execute('INSERT INTO article (id, originUrl, originCaption, imageUrl, title, iconImageUrl, h1 ) VALUES (%s, %s, %s, %s, %s, %s, %s)', \
-            [id, originUrl, originCaption, imageUrl, title, iconImageUrl, h1])
+        print('originUrl ' + originUrl)
+        print('originCaption ' + originCaption)
+        print('imageUrl ' + imageUrl)
+        print('title ' + title)
+        print('iconImageUrl ' + iconImageUrl)
+        print('h1en ' + h1en)
+        print('h1ja ' + h1ja)
+
+        cur.execute('INSERT INTO article (id, originUrl, originCaption, imageUrl, title, iconImageUrl, h1en, h1ja ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', \
+            [id, originUrl, originCaption, imageUrl, title, iconImageUrl, h1en, h1ja])
         conn.commit()
     except:
         print('exception-----')
