@@ -1,18 +1,23 @@
 # table
 ```
 CREATE TABLE article (
- ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
- dt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ created_at timestamp not null default current_timestamp,
+ updated_at timestamp not null default current_timestamp on update current_timestamp,
  id varchar(20),
  originUrl TEXT,
  originCaption varchar(100),
  imageUrl TEXT,
- title varchar(100),
+ title TEXT,
  iconImageUrl TEXT,
- h1 TEXT,
- h2 TEXT,
- h3 TEXT,
- h4 TEXT,
- h5 TEXT
+ h1en TEXT,
+ h1ja TEXT,
+ h2en TEXT,
+ h2ja TEXT,
+ h3ja TEXT,
+ h3en TEXT,
+ h4ja TEXT,
+ h4en TEXT,
+ h5ja TEXT,
+ h5en TEXT
 );
 ```
