@@ -1,0 +1,16 @@
+# site
+- https://medium.com/
+    - RSS NO
+- https://stackoverflow.blog/
+    - RSS NO
+- https://www.infoq.com/nodejs
+    - RSS OK
+- https://news.ycombinator.com/
+    - RSS OK
+    - API OK
+- https://www.theregister.co.uk/software/
+    - RSS OK
+- https://techcrunch.com/
+    - RSS OK
+- https://www.quora.com/
+    - RSS OK

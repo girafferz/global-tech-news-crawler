@@ -5,7 +5,7 @@ CREATE DATABASE news;
 use news;
 
 CREATE TABLE article (
- urlMD5 VARCHAR(32) NOT NULL PRIMARY KEY, /* md5 of url */
+ urlMD5 VARCHAR(32) NOT NULL PRIMARY KEY, /* md5 of url // hashlib.md5(urlString.encode('utf8')).hexdigest() */
  url TEXT NOT NULL, /* target url */
  siteLogoUrl TEXT NOT NULL, /* site logo */
  articleImageUrl TEXT, /* option */

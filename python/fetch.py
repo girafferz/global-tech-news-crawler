@@ -1,16 +1,18 @@
 # coding=utf-8
 # -*- coding: utf-8 -*-
-import sys
-import io
 
-from urllib.request import urlopen
-from bs4 import BeautifulSoup
 import re
-from google.cloud import translate
-import six
 import time
-import mydb
 from urllib.parse import urlparse
+from urllib.request import urlopen
+
+import six
+from bs4 import BeautifulSoup
+from google.cloud import translate
+
+import mydb
+import hashlib
+
 
 def makeSentence(raw_html):
     return lengthCheck(cleanhtml(raw_html))
@@ -48,9 +50,13 @@ def translate_text(target, text):
     return result['translatedText']
 
 def fetchQuora(conn, url):
-    #url = 'https://www.quora.com/Is-Node-js-a-better-choice-than-Python-for-server-side-development-i-e-why-would-one-use-Python-over-Javascript-and-Node-js'
-    print('---url---')
+    a = hashlib.md5()
+    a.update(url.encode('utf-8'))
+    urlMD5 = hashlib.md5(url.encode('utf8')).hexdigest()
+
+    print('---fetchQuora---')
     print(url)
+    print(urlMD5)
     html = urlopen(url)
     bsObj = BeautifulSoup(html.read(), "html.parser")
     title = translate_text('ja', cleanhtml(bsObj.title))
@@ -58,7 +64,7 @@ def fetchQuora(conn, url):
     params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
 
     print('--params1--')
-    print(params1)
+    print(len(params1))
 
     bodyJa = []
     bodyEn = []
@@ -69,18 +75,14 @@ def fetchQuora(conn, url):
             bodyJa.append(translate_text('ja', raw))
             bodyEn.append(raw)
 
-    print('--bodyEn--')
-    print("\n".join(bodyEn))
-    print('--bodyJa--')
-    print("\n".join(bodyJa))
-
-    mydb.insert(conn, 'id' + str(time.time()), url, 'www.quora.com', 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg', title, 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg', "\n".join(bodyEn), "\n".join(bodyJa))
-
-def getHost(url):
-    url = urlparse(url)
-    host = url.hostname or 'localhost'
-    print(host)
-    return host
+    siteLogoUrl = 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg'
+    articleImageUrl = 'https://qsf.ec.quoracdn.net/-3-images.logo.wordmark_default.svg-26-32753849bf197b54.svg'
+    siteTitleJa =  title
+    siteTitleRaw = cleanhtml(bsObj.title)
+    bodyTextJa = "\n".join(bodyJa)
+    bodyTextRaw = "\n".join(bodyEn)
+    langCode = 'en'
+    mydb.insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTitleRaw, bodyTextJa, bodyTextRaw, langCode)
 
 def fetchLifeHacker(conn, url):
     html = urlopen(url)
