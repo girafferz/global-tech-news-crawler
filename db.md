@@ -9,9 +9,10 @@ CREATE TABLE article (
  url TEXT NOT NULL, /* target url */
  siteLogoUrl TEXT NOT NULL, /* site logo */
  articleImageUrl TEXT, /* option */
- siteTitle TEXT NOT NULL, /* news article title */
+ siteTitleJa TEXT NOT NULL, /* transleted title */
+ siteTitleRaw TEXT NOT NULL, /* news article title raw */
  bodyTextJa TEXT NOT NULL, /* transleted */
- bodyTextRaw TEXT NOT NULL, /* raw article body */
+ bodyTextRaw TEXT NOT NULL, /* raw article body raw */
  langCode VARCHAR(5) NOT NULL, /* ISO-639-1 https://cloud.google.com/translate/docs/languages */
  createdAt timestamp not null default current_timestamp,
  updatedAt timestamp not null default current_timestamp on update current_timestamp
