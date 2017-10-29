@@ -60,7 +60,7 @@ def fetchQuora(conn, url):
     print(urlMD5)
     sleep(1)
     html = urlopen(url)
-    bsObj = BeautifulSoup(html.read(), "html.parser")
+    bsObj = BeautifulSoup(str(html.read()), "html.parser")
     #title = ''
     #params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
     #params1 = bsObj.findAll("div", {"class":"inline_editor_content"})
@@ -74,7 +74,7 @@ def fetchQuora(conn, url):
     bodyEn = []
 
     for hoge in params1:
-        if makeSentence(hoge) != '':
+        if makeSentence(str(hoge)) != '':
             raw = makeSentence(hoge)
             bodyJa.append(translate_text('ja', raw))
             bodyEn.append(raw)

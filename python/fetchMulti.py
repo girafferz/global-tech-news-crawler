@@ -1,10 +1,10 @@
 # coding=utf-8
 # -*- coding: utf-8 -*-
 import io
-import sys
+import sys, codecs
 from time import sleep
 
-# sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 import mydb, fetch
 import numpy
@@ -49,9 +49,9 @@ target = '/Should-I-learn-Node-js-or-Ruby-on-Rails'
 for num in range(0,10000):
     print(num)
     sleep(10)
-    hrefs = fetch.getQuoraUrls(conn, host + target)
+    hrefs = fetch.getQuoraUrls(conn, host + str(target))
     target = numpy.random.choice(hrefs)
-    fetch.fetchQuora(conn, host + target)
-    print(host + target)
+    fetch.fetchQuora(conn, host + str(target))
+    print(host + str(target))
 
 #fetch.fetchLifeHacker(conn, 'https://lifehacker.com/tag/programming')
