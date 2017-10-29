@@ -56,10 +56,10 @@ def fetchQuora(conn, url):
     urlMD5 = hashlib.md5(url.encode('utf8')).hexdigest()
 
     print('---fetchQuora---')
-    print(url)
+    print(str(url))
     print(urlMD5)
     sleep(1)
-    html = urlopen(url)
+    html = urlopen(str(url, 'utf-8'))
     bsObj = BeautifulSoup(str(html.read()), "html.parser")
     #title = ''
     #params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
