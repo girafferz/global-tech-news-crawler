@@ -8,6 +8,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 import mydb, fetch
 import numpy
+from yelp_uri.encoding import recode_uri
 
 print('start')
 conn = mydb.connect()
@@ -49,8 +50,9 @@ target = '/Why-would-I-use-React-over-AngularJS'
 for num in range(0,10000):
     print(num)
     sleep(10)
-    hrefs = fetch.getQuoraUrls(conn, host + str(target))
-    target = numpy.random.choice(hrefs)
+    target = recode_uri(host + str(target))
+    hrefs = fetch.getQuoraUrls(conn, recode_uri(host + str(target)))
+    target = recode_uri(numpy.random.choice(hrefs))
     fetch.fetchQuora(conn, host + str(target))
     print(host + str(target))
 
