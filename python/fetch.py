@@ -13,6 +13,7 @@ from google.cloud import translate
 
 import mydb
 import hashlib
+import pretty
 
 
 def makeSentence(raw_html):
@@ -86,6 +87,9 @@ def fetchQuora(conn, url):
     bodyTextJa = "\n".join(bodyJa)
     bodyTextRaw = "\n".join(bodyEn)
     langCode = 'en'
+
+    bodyTextJa = pretty.bodyTextJa(bodyTextJa)
+
     mydb.insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTitleRaw, bodyTextJa, bodyTextRaw, langCode)
 
 def getQuoraUrls(conn, url):
