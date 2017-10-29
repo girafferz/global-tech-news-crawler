@@ -97,7 +97,7 @@ def getQuoraUrls(conn, url):
     html = urlopen(url);
     bsObj = BeautifulSoup(html.read(), "html.parser");
     params1 = bsObj.findAll("a", {"class":"question_link"})
-    print(params1[0].get('href'))
+    #print(params1[0].get('href'))
     hrefs = []
     for i in params1:
         hrefs.append(i.get('href'))
