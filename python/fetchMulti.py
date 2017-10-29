@@ -15,7 +15,21 @@ print('db connect')
 #fetch.fetchQuora(conn, 'https://www.quora.com/Is-Node-js-a-better-choice-than-Python-for-server-side-development-i-e-why-would-one-use-Python-over-Javascript-and-Node-js')
 
 baseUrls = ['https://www.quora.com/How-does-Mark-Zuckerberg-actually-make-money',
-      'https://www.quora.com/Is-Python-a-dying-language-A-friend-of-my-grandmother%E2%80%99s-is-a-computer-scientist-from-MIT-He-told-me-that-I-should-not-learn-Python-because-its-a-dying-language-and-that-I-should-learn-Assembly-because-its-better-than-Python',
+            'https://www.quora.com/Is-Python-a-dying-language-A-friend-of-my-grandmother%E2%80%99s-is-a-computer-scientist-from-MIT-He-told-me-that-I-should-not-learn-Python-because-its-a-dying-language-and-that-I-should-learn-Assembly-because-its-better-than-Python',
+            'https://www.quora.com/What-are-some-cool-Python-tricks',
+            'https://www.quora.com/Which-is-better-Java-or-Python-And-how',
+            'https://www.quora.com/Which-is-the-best-book-for-learning-python-for-absolute-beginners-on-their-own',
+            'https://www.quora.com/Between-Java-and-Python-which-one-is-better-to-learn-first-and-why',
+            'https://www.quora.com/What-are-some-interesting-things-to-do-with-Python-I-want-to-make-something-related-to-big-data-or-machine-learning',
+            'https://www.quora.com/Which-is-better-PHP-or-Python-Why',
+            'https://www.quora.com/What-is-Python-primarily-used-for',
+            'https://www.quora.com/How-should-I-start-learning-Python-1',
+            'https://www.quora.com/Which-is-better-Java-or-Python-And-how',
+            'https://www.quora.com/What-is-Python-primarily-used-for',
+            'https://www.quora.com/What-is-Node-js-for-Are-there-some-good-getting-started-with-Node-js-tutorials-which-you-can-recommend',
+            'https://www.quora.com/What-is-Python-primarily-used-for',
+            'https://www.quora.com/How-good-is-Node-js',
+            'https://www.quora.com/Should-I-learn-Node-js-or-Ruby-on-Rails'
             ]
 
 for u in baseUrls:

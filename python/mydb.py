@@ -41,4 +41,3 @@ def insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTit
     except:
         print('exception-----')
         conn.rollback()
-        raise
