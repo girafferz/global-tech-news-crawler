@@ -45,7 +45,7 @@ baseUrls = ['https://www.quora.com/How-does-Mark-Zuckerberg-actually-make-money'
 #         fetch.fetchQuora(conn, target)
 
 host = 'https://www.quora.com'
-target = '/https://www.quora.com/Why-would-I-use-React-over-AngularJS'
+target = '/Why-would-I-use-React-over-AngularJS'
 for num in range(0,10000):
     print(num)
     sleep(10)
