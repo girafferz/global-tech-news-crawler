@@ -1,6 +1,7 @@
 # coding=utf-8
 # -*- coding: utf-8 -*-
 
+from time import sleep
 import re
 import time
 from urllib.parse import urlparse
@@ -57,11 +58,14 @@ def fetchQuora(conn, url):
     print('---fetchQuora---')
     print(url)
     print(urlMD5)
+    sleep(1)
     html = urlopen(url)
     bsObj = BeautifulSoup(html.read(), "html.parser")
+    #title = ''
+    #params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
+    #params1 = bsObj.findAll("div", {"class":"inline_editor_content"})
     title = translate_text('ja', cleanhtml(bsObj.title))
-    #params1 = bsObj.findAll("p", {"class":"qtext_para"})
-    params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
+    params1 = bsObj.findAll("p", {"class":"qtext_para"})
 
     print('--params1--')
     print(len(params1))
@@ -83,6 +87,17 @@ def fetchQuora(conn, url):
     bodyTextRaw = "\n".join(bodyEn)
     langCode = 'en'
     mydb.insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTitleRaw, bodyTextJa, bodyTextRaw, langCode)
+
+def getQuoraUrls(conn, url):
+    sleep(1)
+    html = urlopen(url);
+    bsObj = BeautifulSoup(html.read(), "html.parser");
+    params1 = bsObj.findAll("a", {"class":"question_link"})
+    print(params1[0].get('href'))
+    hrefs = []
+    for i in params1:
+        hrefs.append(i.get('href'))
+    return hrefs
 
 def fetchLifeHacker(conn, url):
     html = urlopen(url)

@@ -4,7 +4,7 @@ import os
 
 
 def connect():
-    hoge = os.environ["HOGE"]
+    hoge = os.environ["PASS"]
     url = urlparse('mysql://root:' + hoge + '@localhost:3306/news')
 
     conn = mysql.connector.connect(
