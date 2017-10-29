@@ -50,10 +50,12 @@ target = '/Why-would-I-use-React-over-AngularJS'
 for num in range(0,10000):
     print(num)
     sleep(10)
-    target = recode_uri(host + str(target))
-    hrefs = fetch.getQuoraUrls(conn, recode_uri(host + str(target)))
+    ht = host + str(target)
+    ht = recode_uri(ht)
+    hrefs = fetch.getQuoraUrls(conn, ht)
     target = recode_uri(numpy.random.choice(hrefs))
-    fetch.fetchQuora(conn, host + str(target))
-    print(host + str(target))
+    ht = host + target
+    fetch.fetchQuora(conn, ht)
+    print(ht)
 
 #fetch.fetchLifeHacker(conn, 'https://lifehacker.com/tag/programming')
