@@ -14,6 +14,7 @@ from google.cloud import translate
 import mydb
 import hashlib
 import pretty
+from yelp_uri.encoding import recode_uri
 
 
 def makeSentence(raw_html):
@@ -57,10 +58,10 @@ def fetchQuora(conn, url):
     urlMD5 = hashlib.md5(url.encode('utf8')).hexdigest()
 
     print('---fetchQuora---')
-    print(str(url))
+    print(recode_uri(str(url)))
     print(urlMD5)
     sleep(1)
-    html = urlopen(str(url))
+    html = urlopen(recode_uri(str(url)))
     bsObj = BeautifulSoup(str(html.read()), "html.parser")
     #title = ''
     #params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
