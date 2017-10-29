@@ -12,7 +12,7 @@ def bodyTextJa(input):
     out = out.replace('かもしれません。', 'かもしれない。')
     out = out.replace('&quot;', '"')
     out = out.replace(' - クオラ', '')
-    out = out.replace('', '')
+    out = out.replace('角度', 'Angular')
     out = out.replace('', '')
     out = out.replace('', '')
     out = out.replace('', '')
