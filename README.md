@@ -7,4 +7,5 @@ pip install six
 pip install beautifulsoup4
 pip install --upgrade google-cloud
 pip install numpy
+pip install yelp_uri
 ```
