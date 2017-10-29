@@ -59,7 +59,7 @@ def fetchQuora(conn, url):
     print(str(url))
     print(urlMD5)
     sleep(1)
-    html = urlopen(str(url, 'utf-8'))
+    html = urlopen(str(url))
     bsObj = BeautifulSoup(str(html.read()), "html.parser")
     #title = ''
     #params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
