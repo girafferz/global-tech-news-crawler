@@ -89,6 +89,7 @@ def fetchQuora(conn, url):
     bodyTextRaw = "\n".join(bodyEn)
     langCode = 'en'
 
+    siteTitleJa = pretty.bodyTextJa(siteTitleJa)
     bodyTextJa = pretty.bodyTextJa(bodyTextJa)
 
     mydb.insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTitleRaw, bodyTextJa, bodyTextRaw, langCode)

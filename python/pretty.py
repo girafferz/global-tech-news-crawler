@@ -11,7 +11,7 @@ def bodyTextJa(input):
     out = out.replace('のですか', 'のか')
     out = out.replace('かもしれません。', 'かもしれない。')
     out = out.replace('&quot;', '"')
-    out = out.replace('', '')
+    out = out.replace(' - クオラ', '')
     out = out.replace('', '')
     out = out.replace('', '')
     out = out.replace('', '')
