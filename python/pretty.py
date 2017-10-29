@@ -1,8 +1,6 @@
 import re
 
 def bodyTextJa(input):
-    if (re.match('', string)) :
-
     out = input.replace('あります', 'ある')
     out = out.replace('です。', '。')
     out = out.replace('します。', '。')
