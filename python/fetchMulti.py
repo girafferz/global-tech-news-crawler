@@ -4,9 +4,10 @@ import io
 import sys
 from time import sleep
 
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+# sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 import mydb, fetch
+import numpy
 
 print('start')
 conn = mydb.connect()
@@ -32,15 +33,25 @@ baseUrls = ['https://www.quora.com/How-does-Mark-Zuckerberg-actually-make-money'
             'https://www.quora.com/Should-I-learn-Node-js-or-Ruby-on-Rails'
             ]
 
-for u in baseUrls:
-    sleep(3)
-    print(u)
-    hrefs = fetch.getQuoraUrls(conn, u)
-    print(hrefs)
-    for href in hrefs:
-        print(href)
-        sleep(3)
-        target = 'https://www.quora.com/' + href
-        fetch.fetchQuora(conn, target)
+# for u in baseUrls:
+#     sleep(3)
+#     print(u)
+#     hrefs = fetch.getQuoraUrls(conn, u)
+#     print(hrefs)
+#     for href in hrefs:
+#         print(href)
+#         sleep(3)
+#         target = 'https://www.quora.com/' + href
+#         fetch.fetchQuora(conn, target)
+
+host = 'https://www.quora.com'
+target = '/Should-I-learn-Node-js-or-Ruby-on-Rails'
+for num in range(0,10000):
+    print(num)
+    sleep(10)
+    hrefs = fetch.getQuoraUrls(conn, host + target)
+    target = numpy.random.choice(hrefs)
+    fetch.fetchQuora(conn, host + target)
+    print(host + target)
 
 #fetch.fetchLifeHacker(conn, 'https://lifehacker.com/tag/programming')
