@@ -45,7 +45,7 @@ baseUrls = ['https://www.quora.com/How-does-Mark-Zuckerberg-actually-make-money'
 #         fetch.fetchQuora(conn, target)
 
 host = 'https://www.quora.com'
-target = '/Should-I-learn-Node-js-or-Ruby-on-Rails'
+target = '/As-a-rails-web-developer-should-I-learn-Node-js-I-am-a-strong-proponent-for-the-future-of-elegant-client-side-applications-Should-I-make-the-switch-from-Rails-to-Node-js'
 for num in range(0,10000):
     print(num)
     sleep(10)
