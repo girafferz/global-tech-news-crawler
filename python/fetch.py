@@ -72,6 +72,8 @@ def checkTitle(title):
     if re.search(r"python", title):
         print('--73--')
         check = True
+    print('--title check--')
+    print(check)
     return check
 
 def fetchQuora(conn, url):
