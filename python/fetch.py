@@ -62,6 +62,10 @@ def checkTitle(title):
         check = True
     if re.search(r"React", title):
         check = True
+    if re.search(r"Python", title):
+        check = True
+    if re.search(r"python", title):
+        check = True
     return check
 
 def fetchQuora(conn, url):
