@@ -46,16 +46,24 @@ baseUrls = ['https://www.quora.com/How-does-Mark-Zuckerberg-actually-make-money'
 #         fetch.fetchQuora(conn, target)
 
 host = 'https://www.quora.com'
-target = '/Why-would-I-use-React-over-AngularJS'
+target = '/Is-a-NoSQL-database-like-MongoDB-suitable-as-the-database-for-an-ERP-system'
 for num in range(0,10000):
-    print(num)
-    sleep(10)
-    ht = host + str(target)
-    ht = recode_uri(ht)
-    hrefs = fetch.getQuoraUrls(conn, ht)
-    target = recode_uri(numpy.random.choice(hrefs))
-    ht = host + target
-    fetch.fetchQuora(conn, ht)
-    print(ht)
+    try:
+        print(num)
+        sleep(10)
+        ht = host + str(target)
+        ht = recode_uri(ht)
+        hrefs = fetch.getQuoraUrls(conn, ht)
+        target = recode_uri(numpy.random.choice(hrefs))
+        ht = host + target
+        fetch.fetchQuora(conn, ht)
+        print(ht)
+    except HTTPError as e:
+        print(e)
+    except URLError as e:
+        print("The server could not be found!")
+    else:
+        print("It Worked!")
+
 
 #fetch.fetchLifeHacker(conn, 'https://lifehacker.com/tag/programming')
