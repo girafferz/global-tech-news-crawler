@@ -10,6 +10,9 @@ import mydb, fetch
 import numpy
 from yelp_uri.encoding import recode_uri
 
+from urllib.error import HTTPError
+from urllib.error import URLError
+
 print('start')
 conn = mydb.connect()
 print('db connect')

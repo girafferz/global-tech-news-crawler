@@ -52,6 +52,18 @@ def translate_text(target, text):
     #    result['detectedSourceLanguage']))
     return result['translatedText']
 
+def checkTitle(title):
+    check = False
+    if re.search(r"Node", title):
+        check = True
+    if re.search(r"JavaScript", title):
+        check = True
+    if re.search(r"JS", title):
+        check = True
+    if re.search(r"React", title):
+        check = True
+    return check
+
 def fetchQuora(conn, url):
     a = hashlib.md5()
     a.update(url.encode('utf-8'))
@@ -66,6 +78,10 @@ def fetchQuora(conn, url):
     #title = ''
     #params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
     #params1 = bsObj.findAll("div", {"class":"inline_editor_content"})
+
+    if (checkTitle(bsObj.title)):
+        return False
+
     title = translate_text('ja', cleanhtml(bsObj.title))
     params1 = bsObj.findAll("p", {"class":"qtext_para"})
 
