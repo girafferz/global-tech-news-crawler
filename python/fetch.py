@@ -72,6 +72,24 @@ def checkTitle(title):
     if re.search(r"python", title):
         print('--73--')
         check = True
+    if re.search(r"database", title):
+        print('--73--')
+        check = True
+    if re.search(r"design", title):
+        print('--73--')
+        check = True
+    if re.search(r"tool", title):
+        print('--73--')
+        check = True
+    if re.search(r"model", title):
+        print('--73--')
+        check = True
+    if re.search(r"UML", title):
+        print('--73--')
+        check = True
+    if re.search(r"website", title):
+        print('--73--')
+        check = True
     print('--title check--')
     print(check)
     return check
