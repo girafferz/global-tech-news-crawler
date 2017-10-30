@@ -92,6 +92,7 @@ def fetchQuora(conn, url):
     #params1 = bsObj.findAll("div", {"class":"inline_editor_content"})
 
     if (checkTitle(recode_uri(cleanhtml(bsObj.title)))):
+        print('check title is false and return')
         return False
 
     title = translate_text('ja', cleanhtml(bsObj.title))
