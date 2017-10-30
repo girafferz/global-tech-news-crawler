@@ -55,16 +55,22 @@ def translate_text(target, text):
 def checkTitle(title):
     check = False
     if re.search(r"Node", title):
+        print('--58--')
         check = True
     if re.search(r"JavaScript", title):
+        print('--61--')
         check = True
     if re.search(r"JS", title):
+        print('--64--')
         check = True
     if re.search(r"React", title):
+        print('--67--')
         check = True
     if re.search(r"Python", title):
+        print('--70--')
         check = True
     if re.search(r"python", title):
+        print('--73--')
         check = True
     return check
 
