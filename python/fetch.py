@@ -90,6 +90,21 @@ def checkTitle(title):
     if re.search(r"website", title):
         print('--73--')
         check = True
+    if re.search(r"code", title):
+        print('--73--')
+        check = True
+    if re.search(r"language", title):
+        print('--73--')
+        check = True
+    if re.search(r"data", title):
+        print('--73--')
+        check = True
+    if re.search(r"loop", title):
+        print('--73--')
+        check = True
+    if re.search(r"link", title):
+        print('--73--')
+        check = True
     print('--title check--')
     print(check)
     return check
