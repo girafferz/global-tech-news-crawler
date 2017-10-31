@@ -27,6 +27,6 @@ def bodyTextJa(input):
     out = out.replace('\ x99', '')
     out = out.replace('\ x86', '')
     out = out.replace('地図', 'map')
-    out = out.replace('', '')
+    out = out.replace('リンケージ', 'linkedin')
     out = out.replace('', '')
     return out

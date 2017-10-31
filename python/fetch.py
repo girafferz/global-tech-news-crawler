@@ -109,16 +109,27 @@ def checkTitle(title):
     print(check)
     return check
 
+def printS(input):
+    print(str(input))
+
+def urlEnc(url):
+    return recode_uri(str(url))
+
 def fetchQuora(conn, url):
     a = hashlib.md5()
     a.update(url.encode('utf-8'))
-    urlMD5 = hashlib.md5(url.encode('utf8')).hexdigest()
+    urlMD5 = hashlib.md5(url.encode('utf-8')).hexdigest()
 
     print('---fetchQuora---')
-    print(recode_uri(str(url)))
-    print(urlMD5)
+    printS(recode_uri(str(url)))
+    printS(urlMD5)
     sleep(1)
-    html = urlopen(recode_uri(str(url)))
+    print('1---type---')
+    printS(type(url))
+    printS(type(urlEnc(url)))
+    printS(type(str(url)))
+    print('2---type---')
+    html = urlopen(urlEnc(url))
     bsObj = BeautifulSoup(str(html.read()), "html.parser")
     #title = ''
     #params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
