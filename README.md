@@ -9,16 +9,18 @@ pip install --upgrade google-cloud
 pip install numpy
 pip install yelp_uri
 ```
-# proxy
+# proxy with ua
 ```
 #!/usr/bin/env python
 import urllib.request
-
 PROXIES = {
-            'http' : 'http://{PROXT_HOST}:{PROXY_PORT}'
+            'http' : 'http://13.112.243.246:60089'
             }
 proxy_handler = urllib.request.ProxyHandler(PROXIES)
 opener = urllib.request.build_opener(proxy_handler)
-data = opener.open('http://www.ugtop.com/spill.shtml').read()
+headers={"User-Agent":"Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0"}
+url = 'http://www.ugtop.com/spill.shtml'
+req = urllib.request.Request(url,None,headers)
+data = opener.open(req).read()
 print(data.decode('utf-8'))
 ```
