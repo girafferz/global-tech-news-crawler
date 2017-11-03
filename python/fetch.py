@@ -1,10 +1,10 @@
 # coding=utf-8
 # -*- coding: utf-8 -*-
 
+from yelp_uri.encoding import recode_uri
 from time import sleep
 import re
 import time
-from urllib.parse import urlparse
 from urllib.request import urlopen
 
 import six
@@ -14,7 +14,6 @@ from google.cloud import translate
 import mydb
 import hashlib
 import pretty
-from yelp_uri.encoding import recode_uri
 
 
 def makeSentence(raw_html):
@@ -53,6 +52,8 @@ def translate_text(target, text):
     return result['translatedText']
 
 def checkTitle(title):
+    return True #TODO
+
     check = False
     if re.search(r"Node", title):
         print('--58--')
@@ -112,28 +113,9 @@ def checkTitle(title):
 def printS(input):
     print(str(input))
 
-def urlEnc(url):
-    return recode_uri(str(url))
-
-def fetchQuora(conn, url):
-    a = hashlib.md5()
-    a.update(url.encode('utf-8'))
-    urlMD5 = hashlib.md5(url.encode('utf-8')).hexdigest()
-
-    print('---fetchQuora---')
-    printS(recode_uri(str(url)))
-    printS(urlMD5)
-    sleep(1)
-    print('1---type---')
-    printS(type(url))
-    printS(type(urlEnc(url)))
-    printS(type(str(url)))
-    print('2---type---')
-    html = urlopen(urlEnc(url))
+def _urlOpen(conn, url, urlMD5):
+    html = urlopen(url)
     bsObj = BeautifulSoup(str(html.read()), "html.parser")
-    #title = ''
-    #params1 = bsObj.findAll("span", {"class":"rendered_qtext"})
-    #params1 = bsObj.findAll("div", {"class":"inline_editor_content"})
 
     if not checkTitle(recode_uri(cleanhtml(bsObj.title))):
         print('check title is false and return')
@@ -141,9 +123,6 @@ def fetchQuora(conn, url):
 
     title = translate_text('ja', cleanhtml(bsObj.title))
     params1 = bsObj.findAll("p", {"class":"qtext_para"})
-
-    print('--params1--')
-    print(len(params1))
 
     bodyJa = []
     bodyEn = []
@@ -166,6 +145,18 @@ def fetchQuora(conn, url):
     bodyTextJa = pretty.bodyTextJa(bodyTextJa)
 
     mydb.insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTitleRaw, bodyTextJa, bodyTextRaw, langCode)
+
+def fetchQuora(conn, url):
+    a = hashlib.md5()
+    a.update(url.encode('utf-8'))
+    urlMD5 = hashlib.md5(url.encode('utf-8')).hexdigest()
+    sleep(1)
+    try:
+        _urlOpen(conn, url, urlMD5)
+    except Exception as e:
+        print(url)
+        print(e)
+
 
 def getQuoraUrls(conn, url):
     sleep(1)
