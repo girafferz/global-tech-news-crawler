@@ -23,14 +23,23 @@ def connect():
 def insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTitleRaw, bodyTextJa, bodyTextRaw, langCode):
     try:
         cur = conn.cursor()
+        print('--26--')
         print(u'urlMD5: ' + urlMD5.encode('utf-8'))
+        print('--27--')
         print(u'url: ' + url.encode('utf-8'))
+        print('--28--')
         print(u'siteLogoUrl: ' + siteLogoUrl.encode('utf-8'))
+        print('--29--')
         print(u'articleImageUrl: ' + articleImageUrl.encode('utf-8'))
+        print('--30--')
         print(u'siteTitleJa: ' + siteTitleJa.encode('utf-8'))
+        print('--31--')
         print(u'siteTitleRaw: ' + siteTitleRaw.encode('utf-8'))
+        print('--32--')
         print(u'bodyTextJa: ' + bodyTextJa.encode('utf-8'))
+        print('--33--')
         print(u'bodyTextRaw: ' + bodyTextRaw.encode('utf-8'))
+        print('--34--')
         print(u'langCode: ' + langCode.encode('utf-8'))
 
         cur.execute('INSERT INTO article (urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, ' + \
