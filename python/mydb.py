@@ -46,6 +46,7 @@ def insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTit
         print('2--exception--UnicodeEncodeError---')
         conn.rollback()
 
-    except:
-        print('exception-----')
+    except Exception as e:
+        print('--50--exception-----')
+        print(e)
         conn.rollback()
