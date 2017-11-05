@@ -3,7 +3,9 @@
 from urllib.parse import urlparse
 import mysql.connector
 import os
-
+import sys
+print(sys.getdefaultencoding())
+print(sys.stdout.encoding)
 
 def connect():
     hoge = os.environ["MYSQL_PASS"]
