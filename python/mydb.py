@@ -7,7 +7,7 @@ import sys
 print(sys.getdefaultencoding())
 print(sys.stdout.encoding)
 import codecs
-sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
+#sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
 
 def connect():
     hoge = os.environ["MYSQL_PASS"]
@@ -38,13 +38,13 @@ def insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTit
         print('--29--')
         print('articleImageUrl: ' + articleImageUrl)
         print('--30--')
-        print('siteTitleJa: ' + siteTitleJa)
+        #print('siteTitleJa: ' + siteTitleJa)
         print('--31--')
-        print('siteTitleRaw: ' + siteTitleRaw)
+        #print('siteTitleRaw: ' + siteTitleRaw)
         print('--32--')
-        print('bodyTextJa: ' + bodyTextJa)
+        #print('bodyTextJa: ' + bodyTextJa)
         print('--33--')
-        print('bodyTextRaw: ' + bodyTextRaw)
+        #print('bodyTextRaw: ' + bodyTextRaw)
         print('--34--')
         print('langCode: ' + langCode)
 
