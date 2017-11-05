@@ -40,8 +40,10 @@ def insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTit
         conn.commit()
         print('----conn.commit()----')
 
-    except UnicodeEncodeError:
-        print('--exception--UnicodeEncodeError---')
+    except UnicodeEncodeError as e:
+        print('1--exception--UnicodeEncodeError---')
+        print(e)
+        print('2--exception--UnicodeEncodeError---')
         conn.rollback()
 
     except:
