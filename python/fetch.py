@@ -5,7 +5,8 @@ from yelp_uri.encoding import recode_uri
 from time import sleep
 import re
 import time
-from urllib.request import urlopen
+# from urllib.request import urlopen
+import requests
 
 import six
 from bs4 import BeautifulSoup
@@ -113,9 +114,19 @@ def checkTitle(title):
 def printS(input):
     print(str(input))
 
+
+def getByProxy(url):
+    proxies = {
+        'http': 'http://13.112.243.246:60089',
+    }
+    html = requests.get(url, proxies=proxies)
+    return html
+
 def _urlOpen(conn, url, urlMD5):
-    html = urlopen(url)
-    bsObj = BeautifulSoup(str(html.read()), "html.parser")
+    #html = urlopen(url)
+    html = getByProxy(url)
+
+    bsObj = BeautifulSoup(str(html.text), "html.parser")
 
     if not checkTitle(recode_uri(cleanhtml(bsObj.title))):
         print('check title is false and return')
@@ -160,8 +171,9 @@ def fetchQuora(conn, url):
 
 def getQuoraUrls(conn, url):
     sleep(1)
-    html = urlopen(url);
-    bsObj = BeautifulSoup(html.read(), "html.parser");
+    #html = urlopen(url);
+    html = getByProxy(url)
+    bsObj = BeautifulSoup(html.text, "html.parser");
     params1 = bsObj.findAll("a", {"class":"question_link"})
     #print(params1[0].get('href'))
     hrefs = []
@@ -170,8 +182,9 @@ def getQuoraUrls(conn, url):
     return hrefs
 
 def fetchLifeHacker(conn, url):
-    html = urlopen(url)
-    bsObj = BeautifulSoup(html.read(), "html.parser")
+    #html = urlopen(url)
+    html = getByProxy(url)
+    bsObj = BeautifulSoup(html.text, "html.parser")
     params1 = bsObj.findAll("h1", {"class": "headline"})
     params2 = bsObj.findAll("div", {"class": "excerpt entry-summary"})
     params3 = bsObj.findAll("picture")

@@ -18,7 +18,7 @@ conn = mydb.connect()
 print('db connect')
 
 host = 'https://www.quora.com'
-target = '/What-prerequisites-are-needed-to-fully-understand-Node-js'
+target = '/What-are-the-biggest-websites-built-with-Node-js-on-the-server-side'
 for num in range(0,10000):
     try:
         print(num)
