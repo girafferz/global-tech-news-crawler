@@ -6,6 +6,8 @@ import os
 import sys
 print(sys.getdefaultencoding())
 print(sys.stdout.encoding)
+import codecs
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
 
 def connect():
     hoge = os.environ["MYSQL_PASS"]
