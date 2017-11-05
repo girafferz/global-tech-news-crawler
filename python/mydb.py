@@ -4,8 +4,10 @@ import os
 
 
 def connect():
-    hoge = os.environ["PASS"]
-    url = urlparse('mysql://root:' + hoge + '@localhost:3306/news')
+    hoge = os.environ["MYSQL_PASS"]
+    mysql_url = os.environ["MYSQL_URL"]
+    mysql_user = os.environ["MYSQL_USER"]
+    url = urlparse('mysql://' + mysql_user + ':' + hoge + '@' + mysql_url + ':3306/news')
 
     conn = mysql.connector.connect(
             host = url.hostname or 'localhost',

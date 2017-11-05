@@ -116,10 +116,10 @@ def printS(input):
 
 
 def getByProxy(url):
-    proxies = {
-        'http': 'http://13.112.243.246:60089',
-    }
-    html = requests.get(url, proxies=proxies)
+    #s = requests.Session()
+    #s.get(url, proxies={'http': 'http://13.112.243.246:60089'})
+    #html = requests.get(url, proxies=proxies)
+    html = requests.get(url)
     return html
 
 def _urlOpen(conn, url, urlMD5):
