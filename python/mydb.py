@@ -1,8 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf_8 -*-
 from urllib.parse import urlparse
 import mysql.connector
 import os
-import sys
-sys.setdefaultencoding('utf-8')
+
 
 def connect():
     hoge = os.environ["MYSQL_PASS"]
