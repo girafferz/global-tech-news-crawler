@@ -29,8 +29,12 @@ for num in range(0,10000):
         ht = recode_uri(ht)
         print('--fetchMulti 28--')
         hrefs = fetch.getQuoraUrls(conn, ht)
+        prev = hrefs
+        if (len(hrefs) > 0):
+            prev = hrefs
+
         print('--fetchMulti 29--')
-        target = recode_uri(numpy.random.choice(hrefs))
+        target = recode_uri(numpy.random.choice(prev))
         print('--fetchMulti 30--')
         ht = host + target
         print('--fetchMulti 31--')
