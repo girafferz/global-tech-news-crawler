@@ -179,6 +179,7 @@ def getQuoraUrls(conn, url):
     hrefs = []
     for i in params1:
         hrefs.append(i.get('href'))
+        print('--append--')
     return hrefs
 
 def fetchLifeHacker(conn, url):
