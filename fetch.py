@@ -119,7 +119,8 @@ def getByProxy(url):
     #s = requests.Session()
     #s.get(url, proxies={'http': 'http://13.112.243.246:60089'})
     #html = requests.get(url, proxies=proxies)
-    html = requests.get(url)
+    user_agent = {'User-agent': 'Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) '}
+    html = requests.get(url, headers=user_agent)
     return html
 
 def _urlOpen(conn, url, urlMD5):
@@ -173,6 +174,8 @@ def getQuoraUrls(conn, url):
     sleep(1)
     #html = urlopen(url);
     html = getByProxy(url)
+    print(html)
+    print(html.content)
     bsObj = BeautifulSoup(html.text, "html.parser");
     params1 = bsObj.findAll("a", {"class":"question_link"})
     #print(params1[0].get('href'))
@@ -186,7 +189,7 @@ def fetchLifeHacker(conn, url):
     #html = urlopen(url)
     html = getByProxy(url)
     bsObj = BeautifulSoup(html.text, "html.parser")
-    params1 = bsObj.findAll("h1", {"class": "headline"})
+    params1 = bsObj.findAll("h1")
     params2 = bsObj.findAll("div", {"class": "excerpt entry-summary"})
     params3 = bsObj.findAll("picture")
 
@@ -223,3 +226,7 @@ def fetchLifeHacker(conn, url):
         num += 1
 
     #title = translate_text('ja', cleanhtml(bsObj.title))
+
+def getHackerNoonUrls(conn, url):
+
+    print('-')

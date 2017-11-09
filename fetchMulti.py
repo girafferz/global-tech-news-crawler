@@ -17,8 +17,14 @@ print('start')
 conn = mydb.connect()
 print('db connect')
 
+# Quora
 host = 'https://www.quora.com'
 target = '/What-are-the-biggest-websites-built-with-Node-js-on-the-server-side'
+
+#hackernoon
+host = 'https://hackernoon.com'
+target = '/the-build-order-every-startup-should-follow-to-become-successful-635e7ed00fa3'
+
 for num in range(0,10000):
     try:
         print(num)
@@ -28,7 +34,9 @@ for num in range(0,10000):
         print('--fetchMulti 27--')
         ht = recode_uri(ht)
         print('--fetchMulti 28--')
-        hrefs = fetch.getQuoraUrls(conn, ht)
+        #hrefs = fetch.getQuoraUrls(conn, ht)
+        hrefs = fetch.getHackerNoonUrls(conn, ht)
+
         prev = hrefs
         if (len(hrefs) > 0):
             prev = hrefs

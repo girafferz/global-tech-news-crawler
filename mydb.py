@@ -29,25 +29,6 @@ def connect():
 def insert(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTitleRaw, bodyTextJa, bodyTextRaw, langCode):
     try:
         cur = conn.cursor()
-        print('--26--')
-        print('urlMD5: ' + urlMD5)
-        print('--27--')
-        print('url: ' + url)
-        print('--28--')
-        print('siteLogoUrl: ' + siteLogoUrl)
-        print('--29--')
-        print('articleImageUrl: ' + articleImageUrl)
-        print('--30--')
-        #print('siteTitleJa: ' + siteTitleJa)
-        print('--31--')
-        #print('siteTitleRaw: ' + siteTitleRaw)
-        print('--32--')
-        #print('bodyTextJa: ' + bodyTextJa)
-        print('--33--')
-        #print('bodyTextRaw: ' + bodyTextRaw)
-        print('--34--')
-        print('langCode: ' + langCode)
-
         cur.execute('INSERT INTO article (urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, ' + \
                     'siteTitleRaw, bodyTextJa, bodyTextRaw, langCode) ' + \
                     'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', \
