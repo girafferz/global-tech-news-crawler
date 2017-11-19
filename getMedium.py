@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import re
 import hashlib
 import pretty
+import time
 
 
 def checkUrl(text):
@@ -63,8 +64,8 @@ def fetchMedium(conn, url):
                     siteTitleRaw = i.h3.get_text()
                     bodyTextJa = fetch.translate_text('ja', i.get_text())
                     bodyTextRaw = i.get_text()
-                    print(siteTitleJa)
-                    print(bodyTextJa)
+                    #print(siteTitleJa)
+                    #print(bodyTextJa)
                     # def insertWrap(conn, urlMD5, url, siteLogoUrl, articleImageUrl, siteTitleJa, siteTitleRaw, bodyTextJa, bodyTextRaw, langCode):
                     articleImageUrl = 'https://cdn-images-1.medium.com/max/1600/1*gGXtUAqvryrBRkxNvodSzA.png'
                     insertWrap(conn, makeHash(articleUrl), articleUrl, articleImageUrl, articleImageUrl, siteTitleJa, siteTitleRaw,
@@ -114,6 +115,9 @@ def fetchMedium(conn, url):
 
 
 # main
-conn = mydb.connect()
-url = 'https://medium.com/tag/programming/latest'
-fetchMedium(conn, url)
+while True:
+    conn = mydb.connect()
+    url = 'https://medium.com/tag/programming/latest'
+    fetchMedium(conn, url)
+    time.sleep( 60 * 60 * 24)
+
