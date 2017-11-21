@@ -51,8 +51,6 @@ def insertData(conn, title, articleUrl):
         bodyTextJa = '(from reddit.com)'
         bodyTextRaw = '(from reddit.com)'
         print('--insert--')
-        print(siteTitleJa)
-        print(bodyTextJa)
         articleImageUrl = 'https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Reddit_logo_and_wordmark.svg/1200px-Reddit_logo_and_wordmark.svg.png'
         insertWrap(conn, makeHash(articleUrl), articleUrl, articleImageUrl, articleImageUrl, siteTitleJa,
                    siteTitleRaw, bodyTextJa, bodyTextRaw, 'en')
@@ -67,7 +65,6 @@ def fetchTarget(conn, url):
     bsObj = BeautifulSoup(data, "html.parser")
     h1Text = bsObj.h1
     hrefs = bsObj.findAll("a")
-    print(hrefs)
     for i in hrefs:
         try:
             articleUrl = i["href"]
@@ -75,8 +72,6 @@ def fetchTarget(conn, url):
             title = i.parent.get_text()
             if result == True and len(title) > 20:
                 print('--58--')
-                print(articleUrl)
-                print(title)
                 insertData(conn, title, articleUrl)
 
         except Exception as e:
